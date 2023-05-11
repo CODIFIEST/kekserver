@@ -11,24 +11,23 @@ dotenv.config();
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+//old db too many reads
+// Import the functions you need from the SDKs you need
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDhHjhc56740EXC5JokTL1Q69MP1JV1qp4",
-    authDomain: "day27-f9d4f.firebaseapp.com",
-    projectId: "day27-f9d4f",
-    storageBucket: "day27-f9d4f.appspot.com",
-    messagingSenderId: "58144372448",
-    appId: "1:58144372448:web:4ce180b8f52043df26c285"
-  };
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
 // Your web app's Firebase configuration
-// const firebaseConfig = {
-//     apiKey: process.env.apiKey,
-//     authDomain: process.env.authDomain,
-//     projectId: process.env.projectId,
-//     storageBucket: process.env.storageBucket,
-//     messagingSenderId: process.env.messagingSenderId,
-//     appId: process.env.appId
-//   };
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId
+  };
   
   // Initialize Firebase
 const dbApp = initializeApp(firebaseConfig);
