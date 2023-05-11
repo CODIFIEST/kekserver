@@ -32,15 +32,18 @@ const firebaseConfig = {
   // Initialize Firebase
 const dbApp = initializeApp(firebaseConfig);
 const database = getFirestore(dbApp)
-
+var corsOptions = {
+  origin: process.env.CORS_DOMAIN,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/scores", async (req, res) => {
+app.get("/scores", cors(corsOptions),async (req, res) => {
     let cleanData:HighScore[]=[];
     console.log('getting scores')
-   const allScores = await getDocs(collection(database, "kekhighscores")) 
+   const allScores = await getDocs(collection(database, "highscores")) 
    allScores.forEach((item)=>{
     let score = item.data() as any as HighScore
     score.id = item.id
@@ -69,7 +72,7 @@ app.post("/scores", async (req, res) => {
         score:score,
         id:""
     }
-    const newScores = await addDoc(collection(database, "kekhighscores"), player1score)
+    const newScores = await addDoc(collection(database, "highscores"), player1score)
     // newScores.push(player1score);
     // fs.writeFileSync("./highscores.json", JSON.stringify(scores))
     console.log(`new score saved ${newScores}`)

@@ -63,13 +63,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const dbApp = (0, app_1.initializeApp)(firebaseConfig);
 const database = (0, firestore_1.getFirestore)(dbApp);
+var corsOptions = {
+    origin: process.env.CORS_DOMAIN,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-app.get("/scores", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/scores", (0, cors_1.default)(corsOptions), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let cleanData = [];
     console.log('getting scores');
-    const allScores = yield (0, firestore_1.getDocs)((0, firestore_1.collection)(database, "kekhighscores"));
+    const allScores = yield (0, firestore_1.getDocs)((0, firestore_1.collection)(database, "highscores"));
     allScores.forEach((item) => {
         let score = item.data();
         score.id = item.id;
@@ -97,7 +101,7 @@ app.post("/scores", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         score: score,
         id: ""
     };
-    const newScores = yield (0, firestore_1.addDoc)((0, firestore_1.collection)(database, "kekhighscores"), player1score);
+    const newScores = yield (0, firestore_1.addDoc)((0, firestore_1.collection)(database, "highscores"), player1score);
     // newScores.push(player1score);
     // fs.writeFileSync("./highscores.json", JSON.stringify(scores))
     console.log(`new score saved ${newScores}`);
